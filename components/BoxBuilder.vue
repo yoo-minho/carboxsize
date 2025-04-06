@@ -119,22 +119,29 @@ onBeforeUnmount(() => {
                 }"></div>
             </div>
         </div>
-        <div class="bg-white p-6 rounded-b-xl shadow-lg">
-            <div class="flex gap-4 w-full justify-around text-xs mb-1 text-gray-600">
-                <div>전장(mm)</div>
-                <div>전폭(mm)</div>
-                <div>전고(mm)</div>
+        <div class="bg-white p-6 rounded-b-xl shadow-lg grid grid-cols-3 text-xs">
+            <div>
+                <div class="text-gray-500">전장(mm)</div>
+                <div>{{ xSize }}</div>
             </div>
-            <div class="flex gap-4">
-                <input type="number" v-model="xSize" min="50" max="5000" step="50"
-                    class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
-                <input type="number" v-model="ySize" min="50" max="5000" step="50"
-                    class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
-                <input type="number" v-model="zSize" min="50" max="5000" step="50"
-                    class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+            <div>
+                <div class="text-gray-500">전폭(mm)</div>
+                <div>{{ ySize }}</div>
             </div>
-            <div class="flex gap-4 w-full justify-around text-xs mb-1 text-gray-600">
+            <div>
+                <div class="text-gray-500">전고(mm)</div>
+                <div>{{ zSize }}</div>
+            </div>
+            <div>
+                <div class="text-gray-500">축거(mm)</div>
+                <div>{{ xInSize }}</div>
+            </div>
+            <div>
+                <div class="text-gray-500">공간효율성</div>
                 <div>{{ Math.round((xInSize * 1000) / xSize) / 10 }}%</div>
+            </div>
+            <div>
+                <div class="text-gray-500">볼륨</div>
                 <div>{{ Math.round((xSize * ySize * zSize * 10) / (1000 * 1000 * 1000)) / 10 }}m³</div>
             </div>
         </div>
