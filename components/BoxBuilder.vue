@@ -14,11 +14,11 @@ const rotationZ = defineModel('rotationZ', { default: 0 });
 const props = defineProps({
   boxColor: {
     type: String,
-    default: 'rgba(0,0,0,0.5)'
+    default: 'rgba(0,0,0,0.2)'
   },
   title: {
     type: String,
-    default: '직육면체'
+    default: ''
   }
 });
 
@@ -27,7 +27,7 @@ const emit = defineEmits(['update:rotationX', 'update:rotationY', 'update:rotati
 
 // 실제 픽셀 값을 계산하는 함수
 const calculatePixels = (mm) => {
-  return mm * 1/18;
+  return mm * 1/24;
 };
 
 // Y축 애니메이션을 위한 추가 변수
@@ -74,12 +74,12 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="flex flex-col">
-        <div class="bg-white p-4 rounded-t-xl shadow-lg">
-            <h3 class="text-lg font-semibold text-gray-800">{{ title }}</h3>
+    <div class="flex flex-col ">
+        <div v-if="title" class="bg-white p-4 rounded-t-xl shadow-lg">
+            <h3 class="font-semibold text-gray-800">{{ title }}</h3>
         </div>
         <div class="bg-gradient-to-br from-gray-200 to-gray-500 p-6 shadow-lg flex items-center justify-center">
-            <div class="box-container w-72 h-72 relative"
+            <div class="box-container w-48 h-48 relative"
                 :style="{ transform: `rotateX(${rotationX}deg) rotateY(${rotationY + animationOffset}deg) rotateZ(${rotationZ}deg)` }">
                 <div class="box absolute preserve-3d transition-transform" :style="{
                     width: `${calculatePixels(xSize)}px`,
@@ -87,19 +87,19 @@ onBeforeUnmount(() => {
                     transform: `translateZ(${calculatePixels(ySize) / 2}px)`,
                     backgroundColor: boxColor,
                 }"></div>
-                <div class="box absolute preserve-3d transition-transform" :style="{
+                <div class="box absolute preserve-3d transition-transform " :style="{
                     width: `${calculatePixels(xSize)}px`,
                     height: `${calculatePixels(zSize)}px`,
                     transform: `translateZ(${-calculatePixels(ySize) / 2}px)`,
                     backgroundColor: boxColor,
                 }"></div>
-                <div class="box absolute preserve-3d transition-transform" :style="{
+                <div class="box absolute preserve-3d transition-transform " :style="{
                     width: `${calculatePixels(xSize)}px`,
                     height: `${calculatePixels(ySize)}px`,
                     transform: `rotateX(90deg) translateZ(${calculatePixels(zSize) / 2}px)`,
                     backgroundColor: boxColor,
                 }"></div>
-                <div class="box absolute preserve-3d transition-transform" :style="{
+                <div class="box absolute preserve-3d transition-transform " :style="{
                     width: `${calculatePixels(xSize)}px`,
                     height: `${calculatePixels(ySize)}px`,
                     transform: `rotateX(90deg) translateZ(${-calculatePixels(zSize) / 2}px)`,
@@ -119,38 +119,38 @@ onBeforeUnmount(() => {
                 }"></div>
             </div>
         </div>
-        <div class="bg-white p-6 rounded-b-xl shadow-lg grid grid-cols-3 text-xs">
+        <div class="bg-white p-4 rounded-b-xl shadow-lg grid grid-cols-3 text-xs tracking-tighter">
             <div>
-                <div class="text-gray-500">전장(mm)</div>
+                <div class="text-gray-500">전장<span class="text-[8px]">(mm)</span></div>
                 <div>{{ xSize }}</div>
             </div>
             <div>
-                <div class="text-gray-500">전폭(mm)</div>
+                <div class="text-gray-500">전폭<span class="text-[8px]">(mm)</span></div>
                 <div>{{ ySize }}</div>
             </div>
             <div>
-                <div class="text-gray-500">전고(mm)</div>
+                <div class="text-gray-500">전고<span class="text-[8px]">(mm)</span></div>
                 <div>{{ zSize }}</div>
             </div>
             <div>
-                <div class="text-gray-500">축거(mm)</div>
+                <div class="text-gray-500">축거<span class="text-[8px]">(mm)</span></div>
                 <div>{{ xInSize }}</div>
             </div>
             <div>
-                <div class="text-gray-500">공간효율성</div>
+                <div class="text-gray-500">공간효율<span class="text-[8px]">(축거/전장)</span></div>
                 <div>{{ Math.round((xInSize * 1000) / xSize) / 10 }}%</div>
             </div>
             <div>
-                <div class="text-gray-500">볼륨</div>
+                <div class="text-gray-500">박스볼륨<span class="text-[8px]">(전장x전폭x전고)</span></div>
                 <div>{{ Math.round((xSize * ySize * zSize * 10) / (1000 * 1000 * 1000)) / 10 }}m³</div>
             </div>
         </div>
+
     </div>
 </template>
 
 <style scoped>
 .box-container {
-    position: relative;
     transform-style: preserve-3d;
     transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     display: flex;
@@ -160,38 +160,6 @@ onBeforeUnmount(() => {
 }
 
 .box {
-    position: absolute;
-    transform-style: preserve-3d;
-    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-    border: 1px solid rgba(0, 0, 0);
-    will-change: transform, width, height;
-    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.05); */
-    /* backdrop-filter: blur(5px); */
-}
-
-.preserve-3d {
-    transform-style: preserve-3d;
-}
-
-input[type="range"] {
-    -webkit-appearance: none;
-    height: 8px;
-    border-radius: 4px;
-    background: #e0e0e0;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #3490dc;
-    cursor: pointer;
-}
-
-.transition-transform {
-    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-    will-change: transform;
+    border: 0.5px solid black;
 }
 </style>
