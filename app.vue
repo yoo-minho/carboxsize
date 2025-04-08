@@ -12,6 +12,11 @@ const vehicles = ref([
   // 첫 번째 행
   { name: '성인사람', xSize: 500, ySize: 500, zSize: 1700, xInSize: 0 },
   { name: '주차장', xSize: 5000, ySize: 2300, zSize: 300, xInSize: 0 },
+
+  { name: '현대 뉴 슈퍼 에어로시티 (bus)', xSize: 10955, ySize: 2490, zSize: 3180, xInSize: 5400 },
+  { name: 'K1A1 전차', xSize: 9710, ySize: 3590, zSize: 2250, xInSize: 0 },
+  { name: 'K9 자주포', xSize: 7440, ySize: 3500, zSize: 3400, xInSize: 0 },
+
   { name: '2025 BYD atto 3', xSize: 4455, ySize: 1875, zSize: 1615, xInSize: 2720 },
   { name: '2025 BYD 씰', xSize: 4800, ySize: 1875, zSize: 1460, xInSize: 2920 },
   { name: '2025 기아 쏘렌토', xSize: 4815, ySize: 1900, zSize: 1700, xInSize: 2815 },
