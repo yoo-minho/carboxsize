@@ -1,7 +1,4 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-
-// defineModel을 사용하여 v-model 바인딩 속성 정의
 const xSize = defineModel('xSize', { default: 0 });
 const xInSize = defineModel('xInSize', { default: 0 });
 const ySize = defineModel('ySize', { default: 0 });
@@ -27,7 +24,7 @@ const emit = defineEmits(['update:rotationX', 'update:rotationY', 'update:rotati
 
 // 실제 픽셀 값을 계산하는 함수
 const calculatePixels = (mm) => {
-  return mm * 1/24;
+  return mm * 1/32;
 };
 
 // Y축 애니메이션을 위한 추가 변수
@@ -74,12 +71,13 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="flex flex-col ">
-    <div v-if="title" class="bg-white p-4 rounded-t-xl shadow-lg">
-      <h3 class="font-semibold text-gray-800">{{ title }}</h3>
+  <div class="flex flex-col">
+    <div v-if="title" class="bg-white p-2 pb-1 rounded-t-xl shadow-lg">
+      <h3 class="font-semibold text-gray-800 text-sm">{{ title }}</h3>
     </div>
-    <div class="bg-gradient-to-br from-gray-200 to-gray-500 p-6 shadow-lg flex items-center justify-center">
-      <div class="box-container w-64 h-64 relative"
+    <div
+      class="bg-gradient-to-br from-gray-200 to-gray-500 shadow-lg flex items-center justify-center w-full aspect-square">
+      <div class="box-container"
         :style="{ transform: `rotateX(${rotationX}deg) rotateY(${rotationY + animationOffset}deg) rotateZ(${rotationZ}deg)` }">
         <div class="box absolute preserve-3d transition-transform" :style="{
           width: `${calculatePixels(xSize)}px`,
@@ -119,7 +117,7 @@ onBeforeUnmount(() => {
         }"></div>
       </div>
     </div>
-    <div class="bg-white p-4 rounded-b-xl shadow-lg grid grid-cols-3 text-xs tracking-tighter">
+    <div class="bg-white p-2 rounded-b-xl shadow-lg grid grid-cols-3 text-xs tracking-tighter">
       <div>
         <div class="text-gray-500">전장<span class="text-[8px]">(mm)</span></div>
         <div>{{ xSize }}</div>
@@ -133,19 +131,20 @@ onBeforeUnmount(() => {
         <div>{{ zSize }}</div>
       </div>
       <div>
-        <div class="text-gray-500">축거<span class="text-[8px]">(mm)</span></div>
+        <div class="text-gray-500 font-bold">축거<span class="text-[8px]">(mm)</span></div>
         <div>{{ xInSize }}</div>
       </div>
       <div>
-        <div class="text-gray-500">공간효율<span class="text-[8px]">(축거/전장)</span></div>
-        <div>{{ Math.round((xInSize * 1000) / xSize) / 10 }}%</div>
+        <div class="text-gray-500">공간</div>
+        <div class="text-blue-600">{{ Math.round((xInSize * ySize * zSize * 100) / (1000 * 1000 * 1000)) / 100 }}m³
+        </div>
       </div>
       <div>
-        <div class="text-gray-500">박스볼륨<span class="text-[8px]">(전장x전폭x전고)</span></div>
-        <div>{{ Math.round((xSize * ySize * zSize * 10) / (1000 * 1000 * 1000)) / 10 }}m³</div>
+        <div class="text-gray-500">외형</div>
+        <div class="text-purple-600">{{ Math.round((xSize * ySize * zSize * 100) / (1000 * 1000 * 1000)) / 100 }}m³
+        </div>
       </div>
     </div>
-
   </div>
 </template>
 
