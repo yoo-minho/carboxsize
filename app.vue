@@ -1,7 +1,7 @@
 <script setup>
 // 회전 값 설정
-const rotationX = ref(22.5);
-const rotationY = ref(112.5);
+const rotationX = ref(8);
+const rotationY = ref(128);
 const rotationZ = ref(0);
 
 // 선택된 차량 관리 (4개로 확장)
@@ -18,47 +18,110 @@ const vehicles = ref([
   //{ name: 'K9 자주포', xSize: 7440, ySize: 3500, zSize: 3400, xInSize: 0 },
   //{ name: 'K-511 군용트럭 (일명 두돈반)', xSize: 6712, ySize: 2483, zSize: 2845, xInSize: 0 },
 
-  { name: '2025 BYD atto 3', xSize: 4455, ySize: 1875, zSize: 1615, xInSize: 2720 },
-  { name: '2025 BYD 씰', xSize: 4800, ySize: 1875, zSize: 1460, xInSize: 2920 },
-  { name: '2025 기아 쏘렌토', xSize: 4815, ySize: 1900, zSize: 1700, xInSize: 2815 },
-  { name: '2025 르노 QM6', xSize: 4675, ySize: 1845, zSize: 1700, xInSize: 2705 },
-  { name: '2019 쉐보레 올란도', xSize: 4684, ySize: 1807, zSize: 1627, xInSize: 2796 },
-  { name: '2016 르노 QM5', xSize: 4525, ySize: 1855, zSize: 1695, xInSize: 2690 },
-  { name: '2025 기아 EV3', xSize: 4310, ySize: 1850, zSize: 1570, xInSize: 2680 },
-  { name: '2025 기아 EV4', xSize: 4730, ySize: 1860, zSize: 1480, xInSize: 2820 },
-  { name: '2025 기아 EV6', xSize: 4695, ySize: 1880, zSize: 1550, xInSize: 2900 },
-  { name: '2025 기아 EV9', xSize: 5015, ySize: 1980, zSize: 1755, xInSize: 3100 },
-  { name: '2024 테슬라 모델 3', xSize: 4720, ySize: 1935, zSize: 1440, xInSize: 2875 },
-  { name: '2024 테슬라 모델 Y', xSize: 4750, ySize: 1920, zSize: 1625, xInSize: 2890 },
-  { name: '2025 테슬라 모델 Y', xSize: 4790, ySize: 1980, zSize: 1635, xInSize: 2890 },
-  { name: '2024 테슬라 사이버트럭', xSize: 5885, ySize: 2027, zSize: 1905, xInSize: 3635 },
-  { name: '2024 현대 스타리아', xSize: 5255, ySize: 1995, zSize: 2000, xInSize: 3275 },
-  { name: '2025 기아 카니발', xSize: 5155, ySize: 1995, zSize: 1775, xInSize: 3090 },
-  { name: '2025 현대 펠리세이드', xSize: 5060, ySize: 1980, zSize: 1805, xInSize: 2970 },  
-  { name: '2009 현대 싼타페 CM', xSize: 4675, ySize: 1890, zSize: 1725, xInSize: 2700 },
-  { name: '2012 현대 싼타페 DM', xSize: 4685, ySize: 1890, zSize: 1750, xInSize: 2700 },
-  { name: '2025 현대 싼타페', xSize: 4830, ySize: 1900, zSize: 1780, xInSize: 2815 },
-  { name: '2025 현대 투싼', xSize: 4640, ySize: 1865, zSize: 1665, xInSize: 2755  },
-  { name: '2025 기아 셀토스', xSize: 4390, ySize: 1880, zSize: 1620, xInSize: 2630 },
-  { name: '2025 기아 스포티지', xSize: 4685, ySize: 1865, zSize: 1680, xInSize: 2755 },
-  { name: '2023 기아 모닝', xSize: 3595, ySize: 1595, zSize: 1485, xInSize: 2400 },
-  { name: '2025 현대 캐스퍼', xSize: 3595, ySize: 1595, zSize: 1605, xInSize: 2400 },
-  { name: '2025 기아 레이', xSize: 3595, ySize: 1595, zSize: 1700, xInSize: 2520 },
-  { name: '2023 기아 쏘울', xSize: 4196, ySize: 1801, zSize: 1600, xInSize: 2601 },
-  { name: '2025 쉐보레 스파크 EUV', xSize: 3996, ySize: 1760, zSize: 1726, xInSize: 2520 },
-  { name: '2025 현대 아반떼', xSize: 4710, ySize: 1825, zSize: 1420, xInSize: 2720 },
-  { name: '2025 현대 그랜저', xSize: 5035, ySize: 1880, zSize: 1460, xInSize: 2895 },
-  { name: '2025 KGM 토레스', xSize: 4705, ySize: 1890, zSize: 1720, xInSize: 2680 },  
-  { name: '2024 람보르기니 우라칸', xSize: 4311, ySize: 1945, zSize: 1220, xInSize: 2620 },  
-  { name: '2025 기아 니로 하이브리드', xSize: 4420, ySize: 1825, zSize: 1545, xInSize: 2720 },  
-  { name: '2025 현대 코나', xSize: 4350, ySize: 1825, zSize: 1590, xInSize: 2660 },  
-  { name: '2025 KGM 무쏘 칸', xSize: 5415, ySize: 1950, zSize: 1885, xInSize: 3210 },  
-  { name: '2025 KGM 무쏘 EV', xSize: 5160, ySize: 1920, zSize: 1740, xInSize: 3150 },  
-  { name: '2025 기아 타스만', xSize: 5410, ySize: 1930, zSize: 1870, xInSize: 3270 },
-  { name: '2025 현대 아이오닉6', xSize: 5060, ySize: 1980, zSize: 1790, xInSize: 3130 },
-  { name: '2025 현대 넥쏘', xSize: 4750, ySize: 1865, zSize: 1640, xInSize: 2790 },
-  { name: '2025 현대 베뉴', xSize: 4040, ySize: 1770, zSize: 1585, xInSize: 2520 },
-  { name: '2025 르노 그랑콜레오스', xSize: 4780, ySize: 1880, zSize: 1705, xInSize: 2820 },
+  //'https://autoimg.danawa.com/photo/4653/model_360.png'
+
+  //현대
+  { name: '캐스퍼 (2025)', xSize: 3595, ySize: 1595, zSize: 1605, xInSize: 2400, brand:'현대', no:4671}, 
+  { name: '캐스퍼EV (2025)', xSize: 3845, ySize: 1610, zSize: 1610, xInSize: 2580, brand:'현대', no:4653}, 
+  { name: '아반떼 (2026/25/23)', xSize: 4710, ySize: 1825, zSize: 1420, xInSize: 2720, trunk:474, brand:'현대', no:4455}, 
+  { name: '아반떼N (2026/25/23)', xSize: 4710, ySize: 1825, zSize: 1415, xInSize: 2720, brand:'현대', no:4564}, 
+  { name: '쏘나타 (2025/24)', xSize: 4910, ySize: 1860, zSize: 1445, xInSize: 2840, trunk:480, brand:'현대', no:4466}, 
+  { name: '아이오닉6 (2024/23)', xSize: 4855, ySize: 1880, zSize: 1495, xInSize: 2950, brand:'현대', no:4087}, 
+  { name: '그랜저 (2025/23)', xSize: 5035, ySize: 1880, zSize: 1460, xInSize: 2895, trunk:480, brand:'현대', no:4188}, 
+  { name: '베뉴 (2025/23)', xSize: 4040, ySize: 1770, zSize: 1585, xInSize: 2520, brand:'현대', no:3654 },
+  { name: '코나 (2025/24/23)', xSize: 4350, ySize: 1825, zSize: 1585, xInSize: 2660, brand:'현대', no:4361 },  
+  { name: '코나EV (2024)', xSize: 4385, ySize: 1825, zSize: 1580, xInSize: 2660, brand:'현대', no:4510 },  
+  { name: '투싼 (2025/24)', xSize: 4640, ySize: 1865, zSize: 1665, xInSize: 2755, brand:'현대', no:4592  }, 
+  { name: '아이오닉5 (2024)', xSize: 4655, ySize: 1890, zSize: 1605, xInSize: 3000, brand:'현대', no:4624  },
+  { name: '넥쏘 (2024)', xSize: 4670, ySize: 1860, zSize: 1630, xInSize: 2790, brand:'현대', no:3564 },
+  { name: '싼타페 (2025/24)', xSize: 4830, ySize: 1900, zSize: 1770, xInSize: 2815, brand:'현대', no:4435 },
+  { name: '펠리세이드 (2025)', xSize: 5065, ySize: 1980, zSize: 1805, xInSize: 2970, brand:'현대', no:4699 },
+  { name: '아이오닉9 (2025)', xSize: 5060, ySize: 1980, zSize: 1790, xInSize: 3130, brand:'현대', no:4088 }, 
+  { name: '스타리아 (2024/23)', xSize: 5255, ySize: 1995, zSize: 1990, xInSize: 3275, brand:'현대', no:4014 },    
+
+  //BYD
+  { name: '아토3 (2025)', xSize: 4455, ySize: 1875, zSize: 1615, xInSize: 2720, brand:'BYD', no:4702 },
+  { name: '씰 (2025)', xSize: 4800, ySize: 1875, zSize: 1460, xInSize: 2920, brand:'BYD', no:4703 },
+  { name: '씨라이언7 (2025)', xSize: 4830, ySize: 1925, zSize: 1620, xInSize: 2930, brand:'BYD', no:4706 },
+
+  //기아
+  { name: '모닝 (2024/23)', xSize: 3595, ySize: 1595, zSize: 1485, xInSize: 2400, brand:'기아', no:4554 },
+  { name: '레이 (2025/24/23)', xSize: 3595, ySize: 1595, zSize: 1700, xInSize: 2520, brand:'기아', no:4689 },
+  { name: '레이EV (2025/24)', xSize: 3595, ySize: 1595, zSize: 1710, xInSize: 2520, brand:'기아', no:4691 },
+  { name: 'EV4 (2025)', xSize: 4730, ySize: 1860, zSize: 1480, xInSize: 2820, brand:'기아', no:4712 },
+  { name: 'K5 (2025/24)', xSize: 4905, ySize: 1860, zSize: 1445, xInSize: 2850, brand:'기아', no:4585 },
+  { name: 'K8 (2025)', xSize: 5050, ySize: 1880, zSize: 1480, xInSize: 2895, brand:'기아', no:4665 },
+  { name: 'K9 (2025/24/23/22)', xSize: 5140, ySize: 1915, zSize: 1490, xInSize: 3105, brand:'기아', no:4066 },
+  { name: '셀토스 (2025/24/23)', xSize: 4390, ySize: 1800, zSize: 1620, xInSize: 2630, brand:'기아', no:4391 },
+  { name: '니로하이브리드 (2025/24/23)', xSize: 4420, ySize: 1825, zSize: 1545, xInSize: 2720, brand:'기아', no:4130 }, 
+  { name: '니로EV (2025)', xSize: 4420, ySize: 1825, zSize: 1570, xInSize: 2720, brand:'기아', no:4396 }, 
+  { name: 'EV3 (2025/24)', xSize: 4310, ySize: 1850, zSize: 1570, xInSize: 2680, brand:'기아', no:4647 },
+  { name: 'EV6 (2025)', xSize: 4695, ySize: 1890, zSize: 1550, xInSize: 2900, brand:'기아', no:4641 },
+  { name: '스포티지 (2025)', xSize: 4685, ySize: 1865, zSize: 1680, xInSize: 2755, brand:'기아', no:4684 },
+  { name: 'EV9 (2025/24)', xSize: 5010, ySize: 1980, zSize: 1755, xInSize: 3100, brand:'기아', no:4128},
+  { name: '쏘렌토 (2025/24)', xSize: 4815, ySize: 1900, zSize: 1700, xInSize: 2815, brand:'기아', no:4563 },
+  { name: '카니발 (2025)', xSize: 5155, ySize: 1995, zSize: 1785, xInSize: 3090, brand:'기아', no:4586 },
+  { name: '타스만 (2025)', xSize: 5410, ySize: 1930, zSize: 1870, xInSize: 3270, brand:'기아', no:4686 },
+  { name: '봉고3 (2025/24/22/20)', xSize: 5125, ySize: 1740, zSize: 1995, xInSize: 2615, brand:'기아', no:3772 },
+
+  //테슬라
+  { name: '모델3 (2024)', xSize: 4720, ySize: 1935, zSize: 1440, xInSize: 2875, trunk: 649, brand:'테슬라', no:4610 },
+  { name: '모델Y (2024)', xSize: 4750, ySize: 1980, zSize: 1625, xInSize: 2890, trunk: 854, brand:'테슬라', no:3687 },
+  { name: '모델Y주니퍼 (2025)', xSize: 4790, ySize: 1980, zSize: 1625, xInSize: 2890, brand:'테슬라', no:4667 },
+  { name: '모델X (2023)', xSize: 5057, ySize: 1999, zSize: 1680, xInSize: 2965, brand:'테슬라', no:4027 },
+  { name: '사이버트럭 (2024)', xSize: 5885, ySize: 2027, zSize: 1905, xInSize: 3635, brand:'테슬라', no:3825 },
+
+  //제네시스
+  { name: 'G70 (2023)', xSize: 4685, ySize: 1850, zSize: 1400, xInSize: 2835, brand:'제네시스', no:3995 },
+  { name: 'G80 (2025/24)', xSize: 5005, ySize: 1925, zSize: 1465, xInSize: 3010, brand:'제네시스', no:3995 },
+  { name: 'G80EV (2025)', xSize: 5135, ySize: 1925, zSize: 1480, xInSize: 3140, brand:'제네시스', no:4660 },
+  { name: 'G90 (2025)', xSize: 5275, ySize: 1930, zSize: 1490, xInSize: 3180, brand:'제네시스', no:4016 },
+  { name: 'GV60 (2025)', xSize: 4545, ySize: 1890, zSize: 1580, xInSize: 2900, brand:'제네시스', no:4701 },
+  { name: 'GV70 (2025)', xSize: 4715, ySize: 1910, zSize: 1630, xInSize: 2875, brand:'제네시스', no:4609 },
+  { name: 'GV80 (2025)', xSize: 4940, ySize: 1975, zSize: 1715, xInSize: 2955, brand:'제네시스', no:4465 },
+
+  //르노
+  { name: '그랑콜레오스 (2025)', xSize: 4780, ySize: 1880, zSize: 1705, xInSize: 2820, brand:'르노', no:4659 },
+  { name: 'QM6 (2026/25/24)', xSize: 4675, ySize: 1845, zSize: 1700, xInSize: 2705, brand:'르노', no:4483 },
+  { name: '아르카나 (2026/25)', xSize: 4570, ySize: 1820, zSize: 1570, xInSize: 2720, trunk: 487, brand:'르노', no:4560 },
+  { name: 'SM6 (2025/24/23/22)', xSize: 4855, ySize: 1870, zSize: 1460, xInSize: 2810, brand:'르노', no:3979 },
+
+  //KGM
+  { name: '티볼리 (2024)', xSize: 4225, ySize: 1810, zSize: 1620, xInSize: 2600, brand:'KGM', no:4545 },
+  { name: '코란도 (2024)', xSize: 4450, ySize: 1870, zSize: 1630, xInSize: 2675, brand:'KGM', no:3635 },
+  { name: '토레스 (2025)', xSize: 4705, ySize: 1890, zSize: 1720, xInSize: 2680, brand:'KGM', no:4646 },
+  { name: '토레스EVX (2025/24)', xSize: 4715, ySize: 1890, zSize: 1745, xInSize: 2680, trunk:839, brand:'KGM', no:4492 },
+  { name: '액티언 (2025)', xSize: 4740, ySize: 1910, zSize: 1680, xInSize: 2680, brand:'KGM', no:4622 },
+  { name: '렉스턴 (2025/24)', xSize: 4850, ySize: 1960, zSize: 1825, xInSize: 2865, brand:'KGM', no:4518 },
+  { name: '무쏘스포츠 (2025)', xSize: 5105, ySize: 1950, zSize: 1870, xInSize: 3100, brand:'KGM', no:4716 },
+  { name: '무쏘칸 (2025)', xSize: 5415, ySize: 1950, zSize: 1885, xInSize: 3210, brand:'KGM', no:4717 },
+  { name: '무쏘EV (2025)', xSize: 5160, ySize: 1920, zSize: 1740, xInSize: 3150, brand:'KGM', no:4666 },
+
+  //쉐보레
+  { name: '트랙스크로스오버 (2025)', xSize: 4540, ySize: 1825, zSize: 1560, xInSize: 2700, brand:'쉐보레', no:4429 },
+  { name: '트레일블레이저 (2025)', xSize: 4425, ySize: 1810, zSize: 1670, xInSize: 2640, brand:'쉐보레', no:4474 },
+  { name: '올란도 (2019)', xSize: 4684, ySize: 1807, zSize: 1627, xInSize: 2796, brand: '쉐보레', no:2140 },
+
+  //폴스타
+  { name: '폴레스타2 (2025)', xSize: 4605, ySize: 1860, zSize: 1480, xInSize: 2735, brand:'폴스타', no:4468 },
+  { name: '폴레스타4 (2025)', xSize: 4840, ySize: 2008, zSize: 1534, xInSize: 2999, brand:'폴스타', no:4513 },
+
+  //람보르기니
+  { name: '우라칸 (2023)', xSize: 4567, ySize: 1933, zSize: 1165, xInSize: 2620, brand:'람보르기니', no:3746 },  
+  { name: '우루스 (2022)', xSize: 5137, ySize: 2026, zSize: 1618, xInSize: 3006, brand:'람보르기니', no:3526 }, 
+
+  //포르쉐
+  { name: '카이엔 (2026/25)', xSize: 4930, ySize: 1983, zSize: 1696, xInSize: 2895, brand:'포르쉐', no:4506 }, 
+
+  //BMW Mini
+  { name: '미니쿠퍼 (2026/25)', xSize: 3875, ySize: 1745, zSize: 1450, xInSize: 2495, brand:'BMW Mini', no:4618 }, 
+
+  // { name: '2016 르노 QM5', xSize: 4525, ySize: 1855, zSize: 1695, xInSize: 2690 },
+  // { name: '2009 현대 싼타페 CM', xSize: 4675, ySize: 1890, zSize: 1725, xInSize: 2700 },
+  // { name: '2012 현대 싼타페 DM', xSize: 4685, ySize: 1890, zSize: 1750, xInSize: 2700 },
+  // { name: '2023 기아 쏘울', xSize: 4196, ySize: 1801, zSize: 1600, xInSize: 2601 },
+  // { name: '2025 쉐보레 스파크 EUV', xSize: 3996, ySize: 1760, zSize: 1726, xInSize: 2520 },
+  // { name: '2024 람보르기니 우라칸', xSize: 4311, ySize: 1945, zSize: 1220, xInSize: 2620 },   
 ]);
 
 // 비교 모드 상태 관리
@@ -213,7 +276,7 @@ onUnmounted(() => {
   <!-- 헤더 -->
   <header :class="[
     'fixed top-0 left-0 right-0 z-50 transition-transform duration-300 h-16',
-    isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
+    true || isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
   ]">
     <div class="max-w-md mx-auto bg-white shadow-md w-full h-full relative">
       <div class="max-w-md mx-auto px-4 py-3 h-full flex items-center">
@@ -231,7 +294,7 @@ onUnmounted(() => {
   </header>
 
   <!-- 메인 컨텐츠 -->
-  <main class="pt-16 max-w-md mx-auto bg-gray-100 min-h-[calc(100vh-96px)]">
+  <main class="pt-16 pb-[100px] min-h-screen max-w-md mx-auto bg-gray-100">
     <div class="m-4">
       <div v-if="isCompareMode">
         <div class="grid grid-cols-2 gap-4">
@@ -247,9 +310,8 @@ onUnmounted(() => {
             </div>
             <div>
               <div v-if="selectedVehicle">
-                <BoxBuilder v-model:xSize="selectedVehicle.xSize" v-model:ySize="selectedVehicle.ySize"
-                  v-model:zSize="selectedVehicle.zSize" v-model:xInSize="selectedVehicle.xInSize"
-                  v-model:rotationX="rotationX" v-model:rotationY="rotationY" v-model:rotationZ="rotationZ" />
+                <BoxBuilder v-bind="selectedVehicle" v-model:rotationX="rotationX" v-model:rotationY="rotationY"
+                  v-model:rotationZ="rotationZ" />
               </div>
               <div v-else class="h-72 flex items-center justify-center bg-gray-100 rounded-lg">
                 <p class="text-gray-500">차량을 선택해주세요</p>
@@ -423,9 +485,8 @@ onUnmounted(() => {
             </button>
           </div>
           <div class="grid grid-cols-2 gap-4">
-            <template v-for="(vehicle, index) in sortedVehicles" :key="index">
-              <BoxBuilder v-model:xSize="vehicle.xSize" v-model:ySize="vehicle.ySize" v-model:zSize="vehicle.zSize"
-                v-model:xInSize="vehicle.xInSize" v-model:rotationX="rotationX" v-model:rotationY="rotationY"
+            <template v-for="(vehicle) in sortedVehicles" :key="index">
+              <BoxBuilder v-bind="vehicle" v-model:rotationX="rotationX" v-model:rotationY="rotationY"
                 v-model:rotationZ="rotationZ" :title="vehicle.name" />
             </template>
           </div>
@@ -434,7 +495,7 @@ onUnmounted(() => {
     </div>
   </main>
   <!-- 하단 푸터 네비게이션 -->
-  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg max-w-md mx-auto">
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg max-w-md mx-auto z-1">
     <div class="max-w-md mx-auto">
       <div class="flex justify-around items-center h-16">
         <button @click="handleModeChange(false)" :class="[
@@ -477,7 +538,5 @@ onUnmounted(() => {
 <style>
 body {
   background-color: rgba(0, 0, 0, 0.1);
-  padding-bottom: 4rem;
-  /* 푸터 높이만큼 패딩 추가 */
 }
 </style>

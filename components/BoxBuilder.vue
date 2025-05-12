@@ -11,11 +11,19 @@ const rotationZ = defineModel('rotationZ', { default: 0 });
 const props = defineProps({
   boxColor: {
     type: String,
-    default: 'rgba(0,0,0,0.2)'
+    default: 'rgba(0,0,0,0.1)'
   },
   title: {
     type: String,
     default: ''
+  },
+  brand: {
+        type: String,
+    default: ''
+  },
+  no: {
+    type: Number,
+    default: 0
   }
 });
 
@@ -31,11 +39,19 @@ const calculatePixels = (mm) => {
 const animationOffset = ref(0);
 let animationFrameId = null;
 
+// 차량 이미지 URL 계산
+const carImageUrl = computed(() => {
+  if (props.no) {
+    return `https://autoimg.danawa.com/photo/${props.no}/model_360.png`;
+  }
+  return null;
+});
+
 // Y축 애니메이션 효과 - 더 부드러운 애니메이션을 위해 requestAnimationFrame 사용
 onMounted(() => {
   let direction = 1;
   let lastTime = 0;
-  const animationSpeed = 0.3; // 애니메이션 속도 조절
+  const animationSpeed = 0; // 애니메이션 속도 조절
   const maxOffset = 10; // 최대 오프셋 값
   
   const animate = (currentTime) => {
@@ -71,50 +87,59 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col relative">
     <div v-if="title" class="bg-white p-2 pb-1 rounded-t-xl shadow-lg">
       <h3 class="font-semibold text-gray-800 text-sm">{{ title }}</h3>
     </div>
-    <div
-      class="bg-gradient-to-br from-gray-200 to-gray-500 shadow-lg flex items-center justify-center w-full aspect-square">
-      <div class="box-container"
-        :style="{ transform: `rotateX(${rotationX}deg) rotateY(${rotationY + animationOffset}deg) rotateZ(${rotationZ}deg)` }">
-        <div class="box absolute preserve-3d transition-transform" :style="{
-          width: `${calculatePixels(xSize)}px`,
-          height: `${calculatePixels(zSize)}px`,
-          transform: `translateZ(${calculatePixels(ySize) / 2}px)`,
-          backgroundColor: boxColor,
-        }"></div>
-        <div class="box absolute preserve-3d transition-transform " :style="{
-          width: `${calculatePixels(xSize)}px`,
-          height: `${calculatePixels(zSize)}px`,
-          transform: `translateZ(${-calculatePixels(ySize) / 2}px)`,
-          backgroundColor: boxColor,
-        }"></div>
-        <div class="box absolute preserve-3d transition-transform " :style="{
-          width: `${calculatePixels(xSize)}px`,
-          height: `${calculatePixels(ySize)}px`,
-          transform: `rotateX(90deg) translateZ(${calculatePixels(zSize) / 2}px)`,
-          backgroundColor: boxColor,
-        }"></div>
-        <div class="box absolute preserve-3d transition-transform " :style="{
-          width: `${calculatePixels(xSize)}px`,
-          height: `${calculatePixels(ySize)}px`,
-          transform: `rotateX(90deg) translateZ(${-calculatePixels(zSize) / 2}px)`,
-          backgroundColor: boxColor,
-        }"></div>
-        <div class="box absolute preserve-3d transition-transform" :style="{
-          width: `${calculatePixels(ySize)}px`,
-          height: `${calculatePixels(zSize)}px`,
-          transform: `rotateY(90deg) translateZ(${calculatePixels(xSize) / 2}px)`,
-          backgroundColor: boxColor,
-        }"></div>
-        <div class="box absolute preserve-3d transition-transform" :style="{
-          width: `${calculatePixels(ySize)}px`,
-          height: `${calculatePixels(zSize)}px`,
-          transform: `rotateY(90deg) translateZ(${-calculatePixels(xSize) / 2}px)`,
-          backgroundColor: boxColor,
-        }"></div>
+    <div>
+      <div
+        class="bg-gradient-to-br from-gray-200 to-gray-500 shadow-lg flex items-center justify-center w-full aspect-square z-1 relative">
+        <div v-if="carImageUrl" class="absolute inset-0 z-0 flex items-center justify-center">
+          <img :src="carImageUrl" alt="차량 이미지" class="object-contain"
+            :style="{ width: calculatePixels(xSize) + 'px' }" />
+        </div>
+        <div class="box-container relative z-10"
+          :style="{ transform: `rotateX(${rotationX}deg) rotateY(${rotationY + animationOffset}deg) rotateZ(${rotationZ}deg)` }">
+          <div class="box absolute preserve-3d transition-transform" :style="{
+            width: `${calculatePixels(xSize)}px`,
+            height: `${calculatePixels(zSize)}px`,
+            transform: `translateZ(${calculatePixels(ySize) / 2}px)`,
+            backgroundColor: boxColor,
+          }">
+          </div>
+          <div class="box absolute preserve-3d transition-transform " :style="{
+            width: `${calculatePixels(xSize)}px`,
+            height: `${calculatePixels(zSize)}px`,
+            transform: `translateZ(${-calculatePixels(ySize) / 2}px)`,
+            backgroundColor: boxColor,
+          }"></div>
+          <div class="box absolute preserve-3d transition-transform " :style="{
+            width: `${calculatePixels(xSize)}px`,
+            height: `${calculatePixels(ySize)}px`,
+            transform: `rotateX(90deg) translateZ(${calculatePixels(zSize) / 2}px)`,
+            backgroundColor: boxColor,
+          }">
+          </div>
+          <div class="box absolute preserve-3d transition-transform " :style="{
+            width: `${calculatePixels(xSize)}px`,
+            height: `${calculatePixels(ySize)}px`,
+            transform: `rotateX(90deg) translateZ(${-calculatePixels(zSize) / 2}px)`,
+            backgroundColor: boxColor,
+          }"></div>
+          <div class="box absolute preserve-3d transition-transform" :style="{
+            width: `${calculatePixels(ySize)}px`,
+            height: `${calculatePixels(zSize)}px`,
+            transform: `rotateY(90deg) translateZ(${calculatePixels(xSize) / 2}px)`,
+            backgroundColor: boxColor,
+          }">
+          </div>
+          <div class="box absolute preserve-3d transition-transform" :style="{
+            width: `${calculatePixels(ySize)}px`,
+            height: `${calculatePixels(zSize)}px`,
+            transform: `rotateY(90deg) translateZ(${-calculatePixels(xSize) / 2}px)`,
+            backgroundColor: boxColor,
+          }"></div>
+        </div>
       </div>
     </div>
     <div class="bg-white p-2 rounded-b-xl shadow-lg grid grid-cols-3 text-xs tracking-tighter">
@@ -131,7 +156,7 @@ onBeforeUnmount(() => {
         <div>{{ zSize }}</div>
       </div>
       <div>
-        <div class="text-gray-500 font-bold">축거<span class="text-[8px]">(mm)</span></div>
+        <div class="text-gray-500">축거<span class="text-[8px]">(mm)</span></div>
         <div>{{ xInSize }}</div>
       </div>
       <div>
