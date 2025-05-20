@@ -116,6 +116,10 @@ const vehicles = ref([
   //BMW Mini
   { name: '미니쿠퍼 (2026/25)', xSize: 3875, ySize: 1745, zSize: 1450, xInSize: 2495, brand:'BMW Mini', no:4618 }, 
 
+  //폭스바겐
+  { name: 'ID.4 (2025)', xSize: 4585, ySize: 1850, zSize: 1615, xInSize: 2765, brand:'폭스바겐', no:4005 }, 
+  { name: 'ID.5 (2025)', xSize: 4600, ySize: 1850, zSize: 1620, xInSize: 2765, brand:'폭스바겐', no:4121 }, 
+
   // { name: '2016 르노 QM5', xSize: 4525, ySize: 1855, zSize: 1695, xInSize: 2690 },
   // { name: '2009 현대 싼타페 CM', xSize: 4675, ySize: 1890, zSize: 1725, xInSize: 2700 },
   // { name: '2012 현대 싼타페 DM', xSize: 4685, ySize: 1890, zSize: 1750, xInSize: 2700 },
